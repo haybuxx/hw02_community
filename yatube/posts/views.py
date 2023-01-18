@@ -3,6 +3,7 @@ from .models import Post, Group
 
 POST_COUNT = 10
 
+
 def index(request):
     posts = Post.objects.order_by('-pub_date')[:POST_COUNT]
     title = 'Последние обновления на сайте'

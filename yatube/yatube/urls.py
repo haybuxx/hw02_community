@@ -26,7 +26,7 @@ from django.urls import include, path
 app_name = 'posts'
 
 urlpatterns = [
-    #Импорт правил из приложения posts
+    # Импорт правил из приложения posts
     path('', include('posts.urls', namespace='posts')),
     # Встроенная админка Django подключена «из коробки» по адресу admin/
     path('admin/', admin.site.urls)
