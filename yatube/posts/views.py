@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post, Group
 
-POST_COUNT = 10
+COUNT_POST_PAGE = 10
 
 
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:POST_COUNT]
+    posts = Post.objects.order_by('-pub_date')[:COUNT_POST_PAGE]
     title = 'Последние обновления на сайте'
     context = {
         'posts': posts,
@@ -16,7 +16,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.all()[:POST_COUNT]
+    posts = group.posts.all()[:COUNT_POST_PAGE]
     title = (f'Записи сообщества {group.title}')
     context = {
         'group': group,
