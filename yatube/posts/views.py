@@ -5,7 +5,7 @@ COUNT_POST_PAGE = 10
 
 
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:COUNT_POST_PAGE]
+    posts = Post.objects[:COUNT_POST_PAGE]
     title = 'Последние обновления на сайте'
     context = {
         'posts': posts,
