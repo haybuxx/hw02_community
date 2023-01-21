@@ -13,21 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# По умолчанию в проект Django подключена система администрирования
 from django.contrib import admin
-# Функция include позволит использовать path() из других файлов.
-# Импортируем!
 from django.urls import include, path
 
-
-# Эта строчка обязательна.
-# Без неё namespace работать не будет:
-# namespace должен быть объявлен при include и тут, в app_name
 app_name = 'posts'
 
 urlpatterns = [
-    # Импорт правил из приложения posts
     path('', include('posts.urls', namespace='posts')),
-    # Встроенная админка Django подключена «из коробки» по адресу admin/
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('auth/', include('django.contrib.auth.urls'))
 ]
