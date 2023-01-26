@@ -1,7 +1,7 @@
 from django.contrib.auth.views import(LogoutView, LoginView,
 PasswordChangeDoneView, PasswordChangeView, PasswordResetCompleteView,
 PasswordResetConfirmView, PasswordResetDoneView, PasswordResetView)
-from django.urls import path
+from django.urls import path, reverse_lazy
 from . import views
 
 app_name = 'users'
@@ -25,16 +25,18 @@ urlpatterns = [
     ),
     path(
         'password_change/', PasswordChangeView.as_view(
-        template_name='users/password_change_form.html'),
-        name='password_change'
+        template_name='users/password_change_form.html',
+        success_url=reverse_lazy('users:password_change_done')),
+        name='password_change_form'
     ),
     path('password_reset/complete/', PasswordResetCompleteView.as_view(
         template_name='users/password_reset_complete'),
         name='password_reset_complete'
     ),
     path(
-        'reset/<uidb>/<token>/', PasswordResetConfirmView.as_view(
-        template_name='users/password_reset_confirm.html'),
+        'reset/<slug:uibd64>/<slug:token>/', PasswordResetConfirmView.as_view(
+        template_name='users/password_reset_confirm.html',
+        success_url=reverse_lazy('users:password_reset_complete')),
         name='password_reset_confirm'
         ),
     path(
@@ -44,7 +46,8 @@ urlpatterns = [
         ),
     path(
         'password_reset/', PasswordResetView.as_view(
-        template_name='users/password_reset_form.html'),
+        template_name='users/password_reset_form.html',
+        success_url=reverse_lazy('users:password_reset_done')),
         name='password_reset_form'
         )
 ]
